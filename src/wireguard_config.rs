@@ -40,9 +40,11 @@ impl<'a> TryFrom<&[&'a str]> for PeerEntry<'a> {
                 public_key = after_char(line, '=').trim();
             } else if line_lowercase.starts_with("allowedips") {
                 allowed_ips = after_char(line, '=').trim();
-            } else if line.starts_with('#') {
-                // since the pound sign is 1 byte the below slice will work
-                name = Some(line[1..].trim());
+            } else if line.starts_with("# friendly_name") {
+                name = Some(after_char(line, '=').trim());
+            // } else if line.starts_with('#') {
+            //     // since the pound sign is 1 byte the below slice will work
+            //     name = Some(line[1..].trim());
             }
         }
 
